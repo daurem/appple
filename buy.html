@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apple Store — All-in-One</title>
+    <style>
+        /* --- 1. БАЗОВЫЙ APPLE STYLE --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif; }
+        body { background-color: #ffffff; color: #1d1d1f; line-height: 1.5; scroll-behavior: smooth; overflow-x: hidden; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* --- НАВИГАЦИЯ --- */
+        header { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(20px); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.1); }
+        nav { display: flex; justify-content: center; align-items: center; gap: 25px; height: 48px; }
+        nav a { text-decoration: none; color: #1d1d1f; font-size: 12px; opacity: 0.8; transition: 0.3s; }
+        .logo { width: 16px; filter: brightness(0); }
+
+        /* --- СЕКЦИИ --- */
+        section { padding: 80px 0; border-bottom: 1px solid #f5f5f7; }
+        .main-title { font-size: 56px; font-weight: 600; text-align: center; margin-bottom: 40px; }
+
+        /* --- ГРИДЫ ТОВАРОВ --- */
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .product-card { background: #f5f5f7; border-radius: 28px; padding: 30px; text-align: center; transition: 0.4s; }
+        .product-card:hover { transform: translateY(-5px); }
+        .product-card img { width: 100%; max-height: 200px; object-fit: contain; margin-bottom: 15px; }
+
+        /* --- КНОПКИ --- */
+        .btn-blue { background: #0071e3; color: #fff; padding: 8px 18px; border-radius: 980px; border: none; cursor: pointer; font-size: 14px; }
+        .btn-blue:hover { background: #0077ed; }
+
+        /* --- ГОРИЗОНТАЛЬНЫЙ СКРОЛЛ (WATCH) --- */
+        .horizontal-scroll { display: flex; gap: 20px; overflow-x: auto; padding: 20px; scrollbar-width: none; }
+        .promo-card { min-width: 300px; height: 400px; border-radius: 24px; position: relative; overflow: hidden; background: #000; color: #fff; }
+        .promo-card img { width: 100%; height: 100%; object-fit: cover; }
+        .promo-text { position: absolute; top: 30px; left: 30px; }
+
+        /* --- КОРЗИНА --- */
+        .checkout-grid { display: grid; grid-template-columns: 1fr 380px; gap: 30px; margin-top: 30px; }
+        .cart-list { background: #f5f5f7; border-radius: 24px; padding: 25px; min-height: 150px; }
+        .cart-item { display: flex; align-items: center; gap: 15px; padding: 15px 0; border-bottom: 1px solid #d2d2d7; }
+        .cart-item img { width: 60px; height: 60px; object-fit: contain; background: #fff; border-radius: 8px; }
+        .order-panel { background: #fff; border: 1px solid #d2d2d7; border-radius: 24px; padding: 25px; height: fit-content; }
+        input { width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 10px; border: 1px solid #d2d2d7; }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="index1.html"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple logo" class="logo"></a>
+      <a href="mac.html">Mac</a>
+      <a href="ipad.html">iPad</a>
+      <a href="iphone.html">iPhone</a>
+      <a href="watch.html">Watch</a>
+      <a href="airpods.html">AirPods</a>
+      <a href="support.html">Support</a>
+      <button id="themeToggle">Dark / Light</button>
+    </nav>
+  </header>
+<header>
+    <nav>
+        <a href="#iphone">iPhone</a>
+        <a href="#ipad">iPad</a>
+        <a href="#watch">Watch</a>
+        <a href="#airpods">AirPods</a>
+        <a href="#bag">Bag <span id="cart-count"></span></a>
+    </nav>
+</header>
+
+<main>
+    <section id="iphone" class="container reveal">
+        <h1 class="main-title">iPhone</h1>
+        <div class="product-grid">
+            <div class="product-card" data-name="iPhone 16 Pro" data-price="999" data-img="https://www.apple.com/v/iphone/home/bu/images/overview/select/iphone_16_pro__erf98t1xs66u_large.jpg">
+                <img src="data:image/jpeg;base64,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">
+                <h3>iPhone 17 Pro</h3>
+                <p>Hello, Apple Intelligence.</p>
+                <button class="btn-blue buy-btn">Buy</button>
+            </div>
+            <div class="product-card" data-name="iPhone 16" data-price="799" data-img="https://www.apple.com/v/iphone/home/bu/images/overview/select/iphone_16__eb7m9v9vfj6u_large.jpg">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTl9dtzbofEEk_W3M2ZG8lMDE0mDnUYj4tWA57bkOCAow&s">
+                <h3>iPhone 16</h3>
+                <p>New camera. New colors.</p>
+                <button class="btn-blue buy-btn">Buy</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="ipad" class="container reveal">
+        <h2 class="main-title">iPad</h2>
+        <div class="product-grid">
+            <div class="product-card" data-name="iPad Pro M4" data-price="999" data-img="https://www.apple.com/v/ipad/home/ci/images/overview/select/product_ipad_pro__df9m7v58v76u_large.jpg">
+                <img src="./img ipad/ipad_pro_73be02a34.jpg">
+                <h3>iPad Pro M4</h3>
+                <p>Thinnest Apple product ever.</p>
+                <button class="btn-blue buy-btn">Buy</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="watch" class="container reveal">
+        <h2 class="main-title">Apple Watch</h2>
+        <div class="product-grid">
+            <div class="product-card" data-name="Watch Series 10" data-price="399" data-img="https://www.apple.com/v/watch/home/bm/images/overview/select/product_s10__de98u74gc6u6_large.png">
+                <img src="./watch img/s11_5b6ada38f.png">
+                <h3>Watch Series 10</h3>
+                <p>Thinner. Bigger display.</p>
+                <button class="btn-blue buy-btn">Buy</button>
+            </div>
+            <div class="product-card" data-name="Watch Ultra 2" data-price="799" data-img="https://www.apple.com/v/watch/home/bm/images/overview/select/product_u2__eb6m9v9vfj6u_large.png">
+                <img src="./watch img/u3_39e0aebdb.png">
+                <h3>Watch Ultra 2</h3>
+                <p>The ultimate sports watch.</p>
+                <button class="btn-blue buy-btn">Buy</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="airpods" class="container reveal">
+        <h2 class="main-title">AirPods</h2>
+        <div class="product-grid">
+            <div class="product-card" data-name="AirPods Pro 2" data-price="249" data-img="https://www.apple.com/v/airpods/shared/overview/images/compare/compare_airpods_pro_2nd_gen__e99v25a74m4y_large.png">
+                <img src="./airpods/6af1496abcb1cf60a2597b3c941e22a8.jpg">
+                <h3>AirPods Pro 2</h3>
+                <button class="btn-blue buy-btn">Buy</button>
+            </div>
+            <div class="product-card" data-name="AirPods Max" data-price="549" data-img="https://www.apple.com/v/airpods/shared/overview/images/compare/compare_airpods_max__f940809935ee_large.png">
+                <img src="./airpods/1f610092bdce28f1756e64c9f4698cc3.jpg">
+                <h3>AirPods Max</h3>
+                <button class="btn-blue buy-btn">Buy</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="bag" class="container reveal">
+        <h2 class="main-title">Your Bag.</h2>
+        <div class="checkout-grid">
+            <div class="cart-list" id="cart-items">
+                <p style="text-align:center; color:#6e6e73;">Bag is empty</p>
+            </div>
+            <div class="order-panel">
+                <div class="total-row"><span>Total:</span><span id="total-price">$0</span></div>
+                <form id="order-form">
+                    <input type="text" placeholder="Name" required>
+                    <input type="email" placeholder="Email" required>
+                    <button type="submit" class="btn-blue" style="width:100%; padding:15px;">Checkout</button>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script>
+    let cart = [];
+    const cartList = document.getElementById('cart-items');
+    const totalPriceEl = document.getElementById('total-price');
+    const cartCountEl = document.getElementById('cart-count');
+
+    // КЛИК НА BUY
+    document.querySelectorAll('.buy-btn').forEach(btn => {
+        btn.onclick = (e) => {
+            const card = e.target.closest('[data-name]');
+            const item = {
+                name: card.getAttribute('data-name'),
+                price: parseInt(card.getAttribute('data-price')),
+                img: card.getAttribute('data-img')
+            };
+            cart.push(item);
+            updateUI();
+            btn.innerText = 'Added ✓';
+            setTimeout(() => btn.innerText = 'Buy', 1000);
+        };
+    });
+
+    function updateUI() {
+        cartCountEl.innerText = cart.length ? `(${cart.length})` : '';
+        if (cart.length === 0) {
+            cartList.innerHTML = '<p style="text-align:center; color:#6e6e73;">Bag is empty</p>';
+            totalPriceEl.innerText = '$0';
+            return;
+        }
+
+        let total = 0;
+        cartList.innerHTML = cart.map((item, i) => {
+            total += item.price;
+            return `
+                <div class="cart-item">
+                    <img src="${item.img}">
+                    <div style="flex-grow:1"><h4>${item.name}</h4><p>$${item.price}</p></div>
+                    <button onclick="removeItem(${i})" style="background:none; border:none; color:#0066cc; cursor:pointer">Remove</button>
+                </div>
+            `;
+        }).join('');
+        totalPriceEl.innerText = `$${total.toLocaleString()}`;
+    }
+
+    window.removeItem = (i) => { cart.splice(i, 1); updateUI(); };
+
+    // Scroll Reveal
+    window.onscroll = () => {
+        document.querySelectorAll('.reveal').forEach(el => {
+            if (el.getBoundingClientRect().top < window.innerHeight - 50) el.classList.add('active');
+        });
+    };
+</script>
+</body>
+</html>

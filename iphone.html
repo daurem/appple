@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iPhone 17 Pro - Apple</title>
+    <style>
+        /* === ВЕСЬ CSS ТУТ === */
+        :root {
+            --black: #000000;
+            --dark-gray: #161617;
+            --apple-orange: #ff761a;
+            --text-white: #f5f5f7;
+            --text-gray: #86868b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--black);
+            color: var(--text-white);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Анимация появления */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* СЕКЦИЯ 1: HERO */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 50px;
+        }
+
+        .hero-sub {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 0;
+        }
+
+        .pro-title {
+            font-size: clamp(100px, 20vw, 220px);
+            font-weight: 700;
+            line-height: 0.9;
+            background: linear-gradient(180deg, #ff9e58 0%, #a34b00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .hero-img img {
+            width: 100%;
+            max-width: 900px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* СЕКЦИЯ 2: HIGHLIGHTS */
+        .highlights {
+            background-color: #111;
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-weight: 600;
+            margin-bottom: 40px;
+        }
+
+        .slider {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding-bottom: 20px;
+            scrollbar-width: none;
+        }
+
+        .card {
+            min-width: 400px;
+            height: 550px;
+            background-color: var(--dark-gray);
+            border-radius: 30px;
+            padding: 40px;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .card h3 {
+            font-size: 24px;
+            font-weight: 600;
+            max-width: 200px;
+        }
+
+        /* СЕКЦИЯ 3: DESIGN */
+        .design {
+            padding: 150px 0;
+            text-align: center;
+        }
+
+        .label {
+            color: var(--apple-orange);
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .big-h2 {
+            font-size: 56px;
+            line-height: 1.1;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        .sub-p {
+            color: var(--text-gray);
+            max-width: 700px;
+            margin: 0 auto 50px;
+            font-size: 19px;
+        }
+
+        /* СЕКЦИЯ 4: CLOSER LOOK (ИНТЕРАКТИВ) */
+        .closer-look {
+            padding: 100px 0;
+        }
+
+        .look-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 80px;
+            background: var(--dark-gray);
+            padding: 60px;
+            border-radius: 40px;
+        }
+
+        .look-nav {
+            flex: 1;
+        }
+
+        .look-nav h3 {
+            font-size: 32px;
+            margin-bottom: 40px;
+        }
+
+        .look-nav ul {
+            list-style: none;
+        }
+
+        .look-nav li {
+            padding: 18px 0;
+            font-size: 20px;
+            color: var(--text-gray);
+            cursor: pointer;
+            border-bottom: 1px solid #333;
+            transition: 0.3s;
+        }
+
+        .look-nav li.active {
+            color: var(--text-white);
+            border-left: 3px solid var(--apple-orange);
+            padding-left: 15px;
+        }
+
+        .look-img {
+            flex: 1;
+            text-align: center;
+        }
+
+        .look-img img {
+            max-height: 600px;
+            transition: opacity 0.3s ease;
+        }
+
+        /* СЕКЦИЯ 5: CAMERA STATS */
+        .camera-stats {
+            padding: 150px 0;
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .stat-box h4 {
+            font-size: 80px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .stat-box p {
+            color: var(--text-gray);
+            font-size: 18px;
+        }
+
+        header {
+  position: fixed;
+  top: opx;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.6); /* прозрачность */
+  backdrop-filter: blur(15px); /* эффект размытия */
+  box-shadow: 0 2px 10px -8px rgba(0, 0, 0, 0.2);
+  transition: all 0.4s ease;
+  z-index: 10;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 35px;
+  padding: 14px 0;
+}
+
+nav a {
+  text-decoration: none;
+  color: #000;
+  font-size: 14px;
+  font-weight: 400;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: #0071e3;
+}
+
+.logo {
+  width: 18px;
+  vertical-align: middle;
+}
+
+        /* СЕКЦИЯ 6: SENSORS (ТАБЛИЦА) */
+        .sensors {
+            padding-bottom: 150px;
+        }
+
+        .sensor-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+            border-top: 1px solid #333;
+            padding-top: 40px;
+        }
+
+        .sensor-item h5 {
+            font-size: 17px;
+            margin-bottom: 10px;
+        }
+
+        .sensor-item p {
+            color: var(--text-gray);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+
+
+        .orange-txt { color: var(--apple-orange); font-weight: 700; }
+    </style>
+</head>
+<body>
+<header>
+    <nav>
+      <a href="index1.html"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple logo" class="logo"></a>
+      <a href="mac.html">Mac</a>
+      <a href="ipad.html">iPad</a>
+      <a href="iphone.html">iPhone</a>
+      <a href="watch.html">Watch</a>
+      <a href="airpods.html">AirPods</a>
+      <a href="support.html">Support</a>
+
+    </nav>
+  </header>
+    <section class="hero">
+        <div class="container">
+            <p class="hero-sub">iPhone 17</p>
+            <h1 class="pro-title">PRO</h1>
+            <div class="hero-img">
+                <img src="https://www.apple.com/v/iphone-17-pro/d/images/overview/welcome/hero_endframe__xdzisdq1ppem_xlarge.jpg" alt="iPhone 17 Pro">
+            </div>
+        </div>
+    </section>
+
+    <section class="highlights reveal">
+        <div class="container">
+            <h2 class="section-title">Get the highlights.</h2>
+            <div class="slider">
+                <div class="card">
+                    <h3>New look. From more magic.</h3>
+                    <video autoplay muted loop playsinline class="apple-video" width="800px">
+        <source src="large (1).mp4" type="video/mp4">
+    </video>
+                </div>
+                <div class="card">
+                    <h3>Built for Apple Intelligence.</h3>
+                    <video autoplay muted loop playsinline class="apple-video" width="800px">
+        <source src="./large.mp4" type="video/mp4">
+    </video>
+                </div>
+                <div class="card">
+                    <h3>Titanium. Strong. Light. Pro.</h3>
+                    <video autoplay muted loop playsinline class="apple-video" width="800px">
+        <source src="large (2).mp4" type="video/mp4">
+    </video>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="design reveal">
+        <div class="container">
+            <span class="label">Design</span>
+            <h2 class="big-h2">Unibody enclosure.<br>Makes a strong case for itself.</h2>
+            <p class="sub-p">At the core of the new design is a heat-forged aluminum unibody enclosure that maximizes performance, battery capacity, and durability.</p>
+            <img src="https://www.apple.com/v/iphone-17-pro/d/images/overview/design/design_endframe__ckynsj4a5lua_large.jpg" alt="Internal Design" style="width: 100%;">
+        </div>
+    </section>
+
+    <section class="closer-look reveal">
+        <div class="container">
+            <div class="look-wrapper">
+                <div class="look-nav">
+                    <h3>Take a closer look.</h3>
+                    <ul id="featureList">
+                        <li class="active" data-img="https://www.apple.com/v/iphone/home/cg/images/overview/select/iphone_17pro__0s6piftg70ym_large.jpg">Colors</li> <video autoplay muted loop playsinline class="apple-video" width="500px">
+        <source src="large (1).mp4" type="video/mp4">
+    </video>
+                        <li data-img="https://www.apple.com/v/iphone-17-pro/d/images/overview/design/design_endframe__ckynsj4a5lua_large.jpg">Aluminum unibody</li>
+                        <li data-img="https://via.placeholder.com/300x600/111/fff?text=Vapor+Chamber">Vapor chamber</li>
+                        <li data-img="https://via.placeholder.com/300x600/444/fff?text=Display">Immersive pro display</li>
+                        <li data-img="https://via.placeholder.com/300x600/D2691E/fff?text=Action+Button">Action button</li>
+                    </ul>
+                </div>
+                <div class="look-img">
+                    <img id="mainImg" src="https://via.placeholder.com/300x600/D2691E/fff?text=Front+View" alt="iPhone">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="camera reveal">
+        <div class="container">
+            <span class="label">Cameras</span>
+            <h2 class="big-h2">A big zoom forward.</h2>
+            <div class="camera-stats">
+                <img src="https://www.apple.com/v/iphone-17-pro/d/images/overview/cameras/intro/camera_hero_endframe__eap4grnpqa2q_xlarge.jpg" alt="Camera" style="flex: 1; border-radius: 20px;" width="900px">
+                <div class="stat-group" style="flex: 0.5;">
+                    <div class="stat-box" style="margin-bottom: 40px;">
+                        <span class="orange-txt">Up to</span>
+                        <h4>8x</h4>
+                        <p>optical-quality zoom</p>
+                    </div>
+                    <div class="stat-box">
+                        <span class="orange-txt">All</span>
+                        <h4>48MP</h4>
+                        <p>rear cameras</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="sensors reveal">
+        <div class="container">
+            <div class="sensor-grid">
+                <div class="sensor-item">
+                    <h5>48MP Fusion Main camera</h5>
+                    <p>24mm / 48mm focal length<br>f/1.6 aperture<br>1.22μm quad pixel</p>
+                </div>
+                <div class="sensor-item">
+                    <h5>48MP Ultra Wide camera</h5>
+                    <p>13mm focal length<br>f/2.2 aperture<br>1.4μm quad pixel</p>
+                </div>
+                <div class="sensor-item">
+                    <h5>48MP Telephoto camera</h5>
+                    <p>120mm focal length (5x)<br>f/2.8 aperture<br>1.1μm quad pixel</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        /* === ВЕСЬ JS ТУТ === */
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. Появление при скролле
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+            // 2. Интерактив в "Take a closer look"
+            const features = document.querySelectorAll('#featureList li');
+            const mainImg = document.getElementById('mainImg');
+
+            features.forEach(item => {
+                item.addEventListener('click', () => {
+                    // Убираем активный класс у всех
+                    features.forEach(f => f.classList.remove('active'));
+                    // Даем активный нажатому
+                    item.classList.add('active');
+
+                    // Эффект смены картинки
+                    mainImg.style.opacity = '0';
+                    setTimeout(() => {
+                        mainImg.src = item.getAttribute('data-img');
+                        mainImg.style.opacity = '1';
+                    }, 300);
+                });
+            });
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
